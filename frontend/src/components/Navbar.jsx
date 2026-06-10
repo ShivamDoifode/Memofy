@@ -7,8 +7,8 @@ const Navbar = () => {
       <div className="mx-auto max-w-6xl p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold font-mono tracking-tight">
-  Memo<span className="text-primary">fy</span>
-</h1>
+            Memo<span className="text-primary">fy</span>
+          </h1>
           <div className="flex items-center gap-4">
             
             <Link to={"/create"} className="btn btn-outline btn-warning">
