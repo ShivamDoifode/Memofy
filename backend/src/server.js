@@ -10,10 +10,8 @@ dotenv.config();
 
 const app = express();
 
-const frontendPath = path.resolve(
-  __dirname,
-  "../../frontend/dist"
-);
+const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve();
 
 // middleware
 
