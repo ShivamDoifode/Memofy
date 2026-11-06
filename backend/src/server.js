@@ -2,16 +2,20 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import notesRoutes from "./routes/notesRoutes.js";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.resolve(__dirname, "../../frontend/dist");
+
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
 
 const PORT = process.env.PORT || 5001;
-const __dirname = path.resolve();
 
 // middleware
 
@@ -24,10 +28,10 @@ app.use(rateLimiter);
 app.use("/api/notes", notesRoutes);
 
 if(process.env.NODE_ENV==="production"){
-  app.use(express.static(path.join(__dirname,"../frontend/dist")))
-app.get("*",(req,res)=>{
-  res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
-})
+  app.use(express.static(distPath));
+  app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(distPath, "index.html"));
+  });
 }
 
 
